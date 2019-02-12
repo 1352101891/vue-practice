@@ -1,46 +1,59 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+      <h1  v-show="!isDo" @click='click_H'>{{ A }}{{ B }}{{ isDo }}</h1>
+      <Login  @loginResult='loginResult' v-show="!isDo" :username="username" :password="password"/>
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Login from './Login.vue'
+
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  components:{
+       Login,
+  },
+  props:{
+        A:String,
+        B:String,
+        loading: Boolean,
+        isDo:Boolean,
+        username:String,
+        password:String,
+      },
+  created: function () {   
+    var un= this.util.getCache('username');
+    if (this.util.isNull(un)) {
+      this.isDo=false
+      this.loading=false 
+    }else{
+      this.isDo=true;
+      this.loading=false;
+    }
+  },
+  methods:{
+    click_H:function () {
+      if(this.util.isNull(this.username)){
+        alert("用户名不准为空！");
+      }
+      this.$emit('transformClick')
+    },
+    loginResult:function (result) {
+      this.isDo=result;
+      this.$router.push('/user/main/listview')
+    },
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.hello{
+  width: 100%;
+  height: 100%;
+}
+
 h3 {
   margin: 40px 0 0;
 }
