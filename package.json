@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "better-scroll": "^1.14.1",
+    "element-ui": "^2.5.4",
     "vue": "^2.5.21",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.2"

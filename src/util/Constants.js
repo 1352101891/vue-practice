@@ -1,4 +1,11 @@
 var constants={
+  jisu:{
+    appkey:'67d3bb817b7616b4',
+    appsecret:'B4Zb5SE8jhvYrUJ7YBIz8ktypKWW2HpQ',
+    channelUrl:"/api/channel",
+    newsListUrl:'/api/get',
+    searchNewsUrl:'/api/search',
+  },
   users:[
     {username:"1234",password:'123'}
     ,{username:"lvqiu",password:'123'}

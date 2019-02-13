@@ -14,11 +14,15 @@ export default {
   components:{
        Login,
   },
+  data(){
+    return{
+      isDo:false,
+    }
+  },
   props:{
         A:String,
         B:String,
         loading: Boolean,
-        isDo:Boolean,
         username:String,
         password:String,
       },

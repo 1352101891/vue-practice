@@ -2,7 +2,7 @@
 // and then call `Vue.use(VueRouter)`.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import content from '../components/content.vue'
+import rightcontent from '../components/Rightcontent.vue'
 import newslist from '../components/rightpanel/NewsList.vue'
 import newsdetail from '../components/rightpanel/NewsDetail.vue'
 import addnews from '../components/rightpanel/AddNews.vue'
@@ -23,7 +23,7 @@ const Bar = { template: '<div>bar</div>' }
 const routes = [
   { path: '/foo', component: Foo },
   { path: '/bar', component: Bar },
-  { path: '/user/main',component:content,
+  { path: '/user/main',component:rightcontent,
     children: [{
       path: 'listview',
       component: newslist,

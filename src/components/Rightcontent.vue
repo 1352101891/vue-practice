@@ -17,7 +17,7 @@ import treeMenu from './common/TreeMenu.vue'
 import myData from '../util/Constants1'
 
 export default {
-  name: 'content',
+  name: 'rightcontent',
   data(){
     return{
       theData: myData.myData,
@@ -46,10 +46,10 @@ export default {
       this.$emit('transformClick')
     }, 
     itemClick:function(menuItem){
-      if (menuItem.menuName==='新增新闻') {
+      if (menuItem.menuName==='新增博客') {
         this.$router.replace('/user/main/addnews');
-      }else if (menuItem.menuName==='新闻详情') {
-        this.$router.replace('/user/main/viewdetail');
+      }else if (menuItem.menuName==='博客列表') {
+        this.$router.replace('/user/main/listview');
       }else if (menuItem.menuName==='新闻列表') {
         this.$router.replace('/user/main/scrollnews');
       }

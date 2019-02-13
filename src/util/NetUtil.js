@@ -1,7 +1,9 @@
 import axios from 'axios'
- 
+import constants from './Constants.js'
 
-var httpRequest={
+const httpRequest={
+  num:20,//每页的个数
+
   getInst:function(){
     return axios.create({
       timeout: 1000,
@@ -11,18 +13,65 @@ var httpRequest={
     });
   },
 
-  // $.ajax({
-  //    type:"get",
-  //       url:"http://api.jisuapi.com/news/get?channel=头条&start=0&num=20&appkey=fd33d0e0df05c689",
-  //       dataType:'jsonp',
-  
-  //       jsonp:'jsoncallback',
-  //       //async:false,
-  //       success:function(msg){
-  //        //alert(msg)
-  //       }
-  //  });
+  //请求新闻列表
+  //channel=头条&start=0&num=20&appkey=fd33d0e0df05c689
+  getNewsList:function(channel,start,callback){
+    this.getInst()
+      .get(constants.jisu.newsListUrl
+        ,{params: {
+          channel:channel,
+          start:start,
+          num:this.num,
+          appkey: constants.jisu.appkey
+        }}
+      ).then((response)=>{
+        var data=response.data;
+        if (data.status==0 && data.msg=='ok') {
+          callback(data.result.list)
+        }else{
+          window.console.log("请求新闻列表失败！"+data.msg);
+        }
+    })
+  },
 
+
+  //搜索新闻
+  //keyword='姚明'&appkey=fd33d0e0df05c689
+  searchNews:function(keyword,callback){
+    this.getInst()
+      .get(constants.jisu.searchNewsUrl
+        ,{params: {
+          keyword:keyword,
+          appkey: constants.jisu.appkey
+        }}
+      ).then((response)=>{
+        var data=response.data;
+        if (data.status==0 && data.msg=='ok') {
+          callback(data.result.list)
+        }else{
+          window.console.log("搜索新闻失败！"+data.msg);
+        }
+    })
+  },
+
+  // 请求频道接口
+  getNewsChannel:function(callback){
+    this.getInst()
+      .get(constants.jisu.channelUrl
+        ,{params: {
+          appkey: constants.jisu.appkey
+        }}
+      ).then((response)=>{
+        var data=response.data;
+        if (data.status==0 && data.msg==='ok') {
+          callback(data)
+        }else{
+          window.console.log("请求频道失败！"+data.msg);
+        }
+    })
+  },
+
+ 
   //对象内部只能存在键值对，不能写语句
   //所以 function get(){}形式就是错误的写法
   get: function(url) {

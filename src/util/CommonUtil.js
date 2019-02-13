@@ -41,7 +41,7 @@ var util={
     return userListEntity;
   },
 
-  isNull:function (a) {     
+  isNull:function (a) { 
       // String    
       if(a == "" || a == null || a == undefined){ // "",null,undefined
           return true;

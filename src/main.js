@@ -5,9 +5,13 @@ import Vue from 'vue'
 import router from './router/index.js'
 import util from './util/CommonUtil.js'
 import httpRequest  from './util/NetUtil.js' 
-// 全局注册无限加载框架
+// 全局注册饿了吗无限加载框架
 import infiniteScroll from 'vue-infinite-scroll'
 Vue.use(infiniteScroll)
+//引入饿了吗控件框架
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 
 Vue.prototype.xRequest=httpRequest;
 Vue.prototype.util=util

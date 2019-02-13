@@ -1,5 +1,5 @@
 <template>
-<div class="content">
+  <div class="rightroot">
       <ul class="ul_wraper">
         <li class="li_item" v-for="item in data">
           <!-- 使用插槽进行item布局，扩展性更强 -->
@@ -22,13 +22,22 @@ export default {
       data:[],
       loading: false,
 			page:1,
-			pageSize:10,
 		}
-	},
-  created () {
-    this.loadMore();
+  },
+  props:{
+    keyword:String,
   },
   mounted(){
+  },
+   watch: {
+    keyword: function (newS, oldS) {
+      if (newS!=oldS) {
+        this.data=null;
+        this.page=1;
+        this.loading=false;
+        this.loadMore();
+      }
+    }
   },
   methods: {
     loadMore:function(){
@@ -39,6 +48,7 @@ export default {
           that.loading=false;
           if (result && result.length>0) {
             that.data=that.data.concat(result);
+            that.page++;
           }
         });
       }
@@ -48,6 +58,15 @@ export default {
 </script>
 
 <style scoped>
+.rightroot{
+  width: 80%;
+  height: 500px;
+  float: left;
+  align-items: center;
+  position: relative;
+  background: #e3faf0;
+}
+
 li{
   line-height: 3;
   padding: 10px 50px 10px 20px;
