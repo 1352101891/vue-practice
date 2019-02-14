@@ -83,6 +83,7 @@ export default {
     searchResult:function(){
       if (this.util.isNull(this.searchWord)) {
         this.tip='关键字为空！';
+        this.searching=false;
         return;
       }
       this.searching=true;
@@ -137,7 +138,7 @@ h3 {
 }
 
 .newswraper{
-  position: absolute;
+  position: relative;
   width: auto;
   height: auto;
   margin: 50px 0 0 0; 
@@ -145,13 +146,13 @@ h3 {
 
 .searchBar{
   position: absolute;
-  width: 80%;
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column; 
   align-items: center; 
   justify-content: start; 
-  align-content: center; 
+  align-content: center;
   background: #9fc8f7;
 }
 

@@ -50,6 +50,7 @@
 .rightroot{
   width: 80%;
   height: auto;
+  margin: auto;
   background: #e3faf0;
 }
 </style>

@@ -8,7 +8,7 @@
       </ul> 
       <!--v-infinite-scroll-->
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" 
-          infinite-scroll-distance="30" class="ul_wraper">
+          infinite-scroll-distance="30" class="footer">
                 .....加载中
       </div>	   
   </div>
@@ -62,7 +62,7 @@ export default {
 .rightroot{
   width: 80%;
   height: auto;
-  float: left;
+  margin: auto;
   position: relative;
   display: flex;
   flex-direction: column; 
@@ -75,6 +75,11 @@ li{
   line-height: 3;
   padding: 10px 50px 10px 20px;
   background:#ffffff;box-shadow: 1px 5px 20px #888888;
+}
+.footer{
+  width: auto;
+  height: auto;
+  margin: auto;
 }
 
 </style>
