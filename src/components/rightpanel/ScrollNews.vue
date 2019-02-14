@@ -1,19 +1,19 @@
 <template>
-  <div class="content">  
-    <tabmenu  v-show="!searching"  @clickTab='clickTab' :data='tabs'>
-    </tabmenu>
-     <listview v-show="!searching" @getMoreData="getMoreData"  :keyword='tabname'>
-      <!-- 将 `slotProps` 定义为插槽作用域的名字 -->
-      <template slot-scope="slotProps">
-        <!-- 为待办项自定义一个模板，-->
-        <!-- 通过 `slotProps` 定制每个待办项。-->
-        <span> {{ slotProps.item.title }}</span>
-      </template>
-    </listview>
-
+  <div class="content"> 
+    <div class="newswraper"> 
+      <tabmenu  v-show="!searching"  @clickTab='clickTab' :menuData='tabs'>
+      </tabmenu>
+        <listview v-show="!searching" @getMoreData="getMoreData"  :keyword='tabname'>
+        <!-- 将 `slotProps` 定义为插槽作用域的名字 -->
+        <template slot-scope="slotProps">
+          <!-- 为待办项自定义一个模板，--> 
+          <!-- 通过 `slotProps` 定制每个待办项。-->
+          <span> {{ slotProps.item.title }}</span>
+        </template>
+      </listview>
+    </div>
     <div class='searchBar' >
-      <input v-model="searchWord" placeholder="请输入新闻关键字搜索"/> 
-       <p>{{tip}}</p>  
+      <input v-model="searchWord" placeholder="请输入新闻关键字搜索"/> {{tip}}
       <listview v-show="searching" @getMoreData="searchResult" :keyword="searchWord">
         <!-- 将 `slotProps` 定义为插槽作用域的名字 -->
         <template slot-scope="slotProps">
@@ -81,9 +81,12 @@ export default {
   methods:{
     //搜素新闻
     searchResult:function(){
-     
+      if (this.util.isNull(this.searchWord)) {
+        this.tip='关键字为空！';
+        return;
+      }
+      this.searching=true;
       var that=this;
-      that.searching=true;
       this.xRequest.searchNews(that.searchWord,(result)=>{
         that.loading=false;
         window.console.log('searchResult:',result);
@@ -100,7 +103,8 @@ export default {
     },
     //回调方法
     clickTab:function(tab,callback){
-      this.tabname=tab.lable;
+      this.tabname=tab.label;
+      console.log(this.tabname);
     },
     getMoreData:function(page,callback){
       this.loading=true;
@@ -131,6 +135,14 @@ h3 {
   justify-content: start; 
   align-content: center; 
 }
+
+.newswraper{
+  position: absolute;
+  width: auto;
+  height: auto;
+  margin: 50px 0 0 0; 
+}
+
 .searchBar{
   position: absolute;
   width: 80%;
@@ -140,6 +152,7 @@ h3 {
   align-items: center; 
   justify-content: start; 
   align-content: center; 
+  background: #9fc8f7;
 }
 
 span{

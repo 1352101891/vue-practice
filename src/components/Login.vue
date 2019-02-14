@@ -19,9 +19,13 @@ export default {
   props:{
     username:String,
     password:String,
-    tip_user:String,
-    tip_pass:String,
-    isLoading:Boolean,
+  },
+  data(){
+    return{
+      tip_user:'',
+      tip_pass:'',
+      isLoading:false,
+    }
   },
   created: function () {
     this.isLoading=false;

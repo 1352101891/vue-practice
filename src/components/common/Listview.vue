@@ -35,6 +35,7 @@ export default {
         this.data=null;
         this.page=1;
         this.loading=false;
+        window.console.log('keyword开始加载更多！');
         this.loadMore();
       }
     }
@@ -46,7 +47,7 @@ export default {
         that.loading=true;
         that.$emit('getMoreData',that.page,(result)=>{
           that.loading=false;
-          if (result && result.length>0) {
+          if (this.util.isNull(result)) {
             that.data=that.data.concat(result);
             that.page++;
           }
@@ -60,12 +61,15 @@ export default {
 <style scoped>
 .rightroot{
   width: 80%;
-  height: 500px;
+  height: auto;
   float: left;
-  align-items: center;
   position: relative;
-  background: #e3faf0;
-}
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: start; 
+  align-content: center; 
+ }
 
 li{
   line-height: 3;

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import constants from './Constants.js'
+import util from './CommonUtil.js'
 
 const httpRequest={
   num:20,//每页的个数
@@ -16,6 +17,12 @@ const httpRequest={
   //请求新闻列表
   //channel=头条&start=0&num=20&appkey=fd33d0e0df05c689
   getNewsList:function(channel,start,callback){
+    var tempKey= channel+'_'+start+'_'+util.getNowFormatDate();
+    var newsData= util.getDataFromDisk(tempKey);
+    if (!util.isNull(newsData)) {
+      callback(newsData);
+      return;
+    }
     this.getInst()
       .get(constants.jisu.newsListUrl
         ,{params: {
@@ -28,6 +35,7 @@ const httpRequest={
         var data=response.data;
         if (data.status==0 && data.msg=='ok') {
           callback(data.result.list)
+          util.saveDataToDisk(tempKey,data.result.list);
         }else{
           window.console.log("请求新闻列表失败！"+data.msg);
         }
@@ -56,19 +64,26 @@ const httpRequest={
 
   // 请求频道接口
   getNewsChannel:function(callback){
-    this.getInst()
-      .get(constants.jisu.channelUrl
-        ,{params: {
-          appkey: constants.jisu.appkey
-        }}
-      ).then((response)=>{
-        var data=response.data;
-        if (data.status==0 && data.msg==='ok') {
-          callback(data)
-        }else{
-          window.console.log("请求频道失败！"+data.msg);
-        }
-    })
+    var tempKey=util.getNowFormatDate()+'_'+constants.jisu.channelUrl;
+    var channelData=util.getDataFromDisk(tempKey);
+    if (!util.isNull(channelData)) {
+      callback(channelData);
+    }else{
+      this.getInst()
+        .get(constants.jisu.channelUrl
+          ,{params: {
+            appkey: constants.jisu.appkey
+          }}
+        ).then((response)=>{
+          var data=response.data;
+          if (data.status==0 && data.msg==='ok') {
+            util.saveDataToDisk(tempKey,data);
+            callback(data)
+          }else{
+            window.console.log("请求频道失败！"+data.msg);
+          }
+      })
+    }
   },
 
  

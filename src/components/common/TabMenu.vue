@@ -1,11 +1,11 @@
 <template>
   <div id="rightroot">
-    <el-radio-group v-model="tabPosition" style="margin-bottom: 30px;">
+    <!-- <el-radio-group v-model="tabPosition" style="margin-bottom: 30px;">
       <el-radio-button label="top">top</el-radio-button>
       <el-radio-button label="right">right</el-radio-button>
       <el-radio-button label="bottom">bottom</el-radio-button>
       <el-radio-button label="left">left</el-radio-button>
-    </el-radio-group>
+    </el-radio-group> -->
   <!-- <el-tabs v-model="activeName" 
       :tab-position="tabPosition"   @tab-click="handleClick">
     <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
@@ -16,7 +16,7 @@
 
     <el-tabs v-model="activeName" :tab-position="tabPosition" 
     @tab-click="handleClick">
-      <el-tab-pane v-for="(item, index) in data" :label="item" :name="'lable_'+index"></el-tab-pane>
+      <el-tab-pane v-for="(item, index) in menuData" :label="item" :name="item"></el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -25,18 +25,18 @@
     name: 'tabmenu',
     data() {
       return {
-        activeName:this.data[0],
+        activeName:'',
         tabPosition: 'top',
         loading:false,
       };
     },
     props:{
-     data:Array,
+     menuData:Array,
     },
     create(){
     },
     mounted(){
-      
+     this.activeName=this.menuData[0];
     },  
     methods:{
       handleClick:function(tab, event){
